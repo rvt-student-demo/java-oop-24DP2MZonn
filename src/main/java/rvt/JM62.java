@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 public class JM62 {
     public static  class   TodoList {
         List<String> tasks;
-        private final String filePath = "";
+        private final String filePath = "todo.csv";
         public TodoList () {
             tasks = new ArrayList<>();
         }
