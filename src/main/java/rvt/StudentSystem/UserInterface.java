@@ -36,14 +36,32 @@ public class UserInterface {
                 
                 System.out.println("Personas kods:");
                 String personaskods = scanner.nextLine();
-                list.add(name, surname, email, personaskods);
-            } else if (command.equals("list")) {
-                list.print();
-            } else if (command.equals("remove")) {
-                System.out.println("Which one is removed? ");
-                int i = Integer.parseInt(scanner.nextLine());
-                list.remove(i);
+                list.add(name, surname, email, personaskods, timestamp);
 
+                fileHandler.saveToFile(list);
+            } else if (command.equals("Show")) {
+                list.show();
+            } else if (command.equals("remove")) {
+                System.out.println("Enter personaskodu: ");
+                String code = scanner.nextLine();
+                list.remove(code);
+
+                fileHandler.saveToFile(list);
+            } else if(command.equals("edit")){
+                    System.out.println("Enter personaskodu: ");
+                    String code = scanner.nextLine();
+
+                    System.out.println("Enter new name: ");
+                    String name = scanner.nextLine();
+                    System.out.println("Enter new surname: ");
+                    String surname = scanner.nextLine();
+                    System.out.println("Enter new email: ");
+                    String email = scanner.nextLine();
+                    System.out.println("Enter new personas kods: ");
+                    String personaskods = scanner.nextLine();
+                    list.edit(code, name, surname, email, personaskods);
+    
+                    fileHandler.saveToFile(list);
             }
         }
     }

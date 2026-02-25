@@ -6,6 +6,8 @@ public class FileHandler {
     private final String filePath = "data/data.csv";
     public void saveToFile(Register register) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
+            writer.write("name,surname,email,personaskods,timestamp");
+            writer.newLine();
             for (int i = 0; i < register.registerlists.size(); i++) {
                 writer.write(register.registerlists.get(i).toString());
                 writer.newLine();

@@ -1,34 +1,72 @@
 package rvt.StudentSystem;
     import java.util.ArrayList;
     import java.util.List;
+    
 public class Register {
     
     public List<Student> registerlists;
-
     public Register(){
        
         this.registerlists = new ArrayList<>();
     }
 
     public void add(String name, String surname, String email, String personaskods){
-        Student newStudent = new Student(name, surname, email, personaskods);
-        registerlists.add(newStudent);
-    }
-    public void print(){
-        for(int i = 0; i < registerlists.size(); i++  ){
-            System.out.println(i + 1 + ": " + registerlists.get(i));
+        if(checkEventString(name, surname, email, personaskods)){
+            Student newStudent = new Student(name, surname, email, personaskods);
+            registerlists.add(newStudent);
+        } else {
+            System.out.println("Invalid input! Registration cancelled.");
         }
+        
     }
-    public void remove(int number){
-        int i = number - 1;
-        if(i >= 0){
-            if(i < registerlists.size()){
-                registerlists.remove(i);
-            }else{
-                System.out.println("Error");
+    public void show() {
+            for (int i = 0; i < registerlists.size(); i++) {
+                String entry = registerlists.get(i).toString();
+                String[] parts = entry.split(",");
+                if (parts.length == 5) {
+                    String name = parts[0];
+                    String surname = parts[1];
+                    String email = parts[2];
+                    String personaskods = parts[3];
+                    String timestamp = parts[4];
+                    
+                    System.out.println((i + 1) + ": " + name + " " + surname + ", " + email + ", " + personaskods + ", " + timestamp);
+                }
+                System.out.println((i + 1) + ": " + entry);
             }
-            
         }
+    
+    public void remove(String remove){
+        boolean found = false;
+        for(int i = 0; i < registerlists.size(); i++){
+            if (registerlists.get(i).getpersonaskods().equals(remove)){
+                registerlists.remove(i);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Personas kods not found!");
+        }
+    }
+    public void edit(String code, String name, String surname, String email, String personaskods){
+        if(checkEventString(name, surname, email, personaskods)){
+            boolean found = false;
+            for(int i = 0; i < registerlists.size(); i++){
+                if(registerlists.get(i).getpersonaskods().equals(code)){
+                    registerlists.set(i, new Student(name, surname, email, personaskods));
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("Personas kods not found!");
+            }
+        } else {
+            System.out.println("Invalid input! Edit cancelled.");
+        }
+       
+        
     }
     public boolean checkEventString(String name, String surname, String email, String personaskods) {
         String nameRegex = "^[A-Z][a-z]+(?:[ \\-][A-Z][a-z]+)*$";
