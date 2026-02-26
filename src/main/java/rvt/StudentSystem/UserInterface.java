@@ -11,10 +11,12 @@ import rvt.StudentSystem.Register;
 public class UserInterface {
     private Register list;
     private Scanner scanner;
+    private FileHandler fileHandler;
     
-    public UserInterface(Register list, Scanner scanner){
+    public UserInterface(Register list, Scanner scanner, FileHandler fileHandler){
         this.list = list;
         this.scanner = scanner;
+        this.fileHandler = fileHandler;
     }
 
     public void start(){
@@ -36,10 +38,10 @@ public class UserInterface {
                 
                 System.out.println("Personas kods:");
                 String personaskods = scanner.nextLine();
-                list.add(name, surname, email, personaskods, timestamp);
+                list.add(name, surname, email, personaskods);
 
                 fileHandler.saveToFile(list);
-            } else if (command.equals("Show")) {
+            } else if (command.equals("show")) {
                 list.show();
             } else if (command.equals("remove")) {
                 System.out.println("Enter personaskodu: ");

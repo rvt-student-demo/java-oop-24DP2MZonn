@@ -22,4 +22,13 @@ public class Student {
     public String getPersonaskods() {
     return this.personaskods;
     }
+    public String getName() { 
+        return this.name; 
+    }
+    public String getSurname() { 
+        return this.surname; 
+    }
+    public String getEmail() { 
+        return this.email; 
+    }
 }
