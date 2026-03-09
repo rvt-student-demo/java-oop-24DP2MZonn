@@ -1,5 +1,8 @@
 package rvt.Interface;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JM92 {
     public interface Packable {
         double weight();
@@ -43,12 +46,19 @@ public class JM92 {
         public String toString() {
             return artist + ": " + CDname + " (" + publicationYear + ")";
         }
+    }
         public static class Box implements Packable{
-            private double weight;
-            private Packable[] items;
+            private double maxWeight;
+            private List<Packable> items;
 
-            public Box(double weight, Packable... items) {
-                this.items = items;
+            public Box(double maxWeight) {
+                this.maxWeight = maxWeight;
+                this.items = new ArrayList<>();
+            }
+            public void add(Packable item) {
+                if (this.weight() + item.weight() <= maxWeight) {
+                    items.add(item);
+                }
             }
 
             @Override
@@ -58,12 +68,35 @@ public class JM92 {
                     totalWeight += item.weight();
                 }
                 return totalWeight;
+            }
+            @Override
+            public String toString() {
+                return "Box: " + items.size() + " items, total weight " + weight() + " kg";
+            }
+
+           
         }
+    
         
-    }
-    public static void main(String[] args) {
-       
-        }
+    public static void main(String[] args) { 
+        Box smallBox = new Box(5);
+        smallBox.add(new Book("Fyodor Dostoevsky", "Crime and Punishment", 2));
+        smallBox.add(new CD("Pink Floyd", "Dark Side of the Moon", 1973));
+        
+        Box mediumBox = new Box(8);
+        mediumBox.add(new Book("Robert Martin", "Clean Code", 1));
+        mediumBox.add(smallBox);
+        
+        Box bigBox = new Box(15);
+        bigBox.add(new Book("Kent Beck", "Test Driven Development", 0.7));
+        bigBox.add(mediumBox);
+        
+        System.out.println(bigBox);
+        
+            
+        bigBox.add(bigBox);
+        System.out.println(bigBox);
+        
     
     }
 }
