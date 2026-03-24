@@ -1,7 +1,7 @@
 package rvt.Shop;
     import java.util.Map;
-import java.util.Set;
-import java.util.HashMap;
+    import java.util.Set;
+    import java.util.HashMap;
 public class OnlineShop {
     public class Warehouse {
         private Map<String, Integer> collection = new HashMap<>();
@@ -57,23 +57,50 @@ public class OnlineShop {
         }
     }
     public class ShoppingCart{
-        private Map<String, Item> cart = new HashMap<>();
+        public Map<String, Item> cart = new HashMap<>();
 
         public ShoppingCart(){
         }
+        
         public void add(String product, int price){
             if(this.cart.containsKey(product)){
                 this.cart.get(product).increaseQuantity();
+            } else {
+                this.cart.put(product, new Item(product, 1, price));
             }
         }
+        public int price(){
+            int total = 0;
+            for (Item item: this.cart.values()) {
+                total += item.price();
+            }
+            return total;
+        }
+        public void print(){
+            for (Item item: this.cart.values()) {
+                System.out.println(item);
+            }
+        }
+        
     }
     public static void main(String[] args) {
         OnlineShop shop = new OnlineShop();
-        Item item = shop.new Item("milk", 4, 2);
+        ShoppingCart cart = shop.new ShoppingCart();
         
-        System.out.println("an item that contains 4 milks has the total price of " + item.price());
-        System.out.println(item);
-        item.increaseQuantity();
-        System.out.println(item);
+        cart.add("milk", 3);
+        cart.print();
+        System.out.println("cart price: " + cart.price() + "\n");
+
+        cart.add("buttermilk", 2);
+        cart.print();
+        System.out.println("cart price: " + cart.price() + "\n");
+
+        cart.add("milk", 3);
+        cart.print();
+        System.out.println("cart price: " + cart.price() + "\n");
+
+        cart.add("milk", 3);
+        cart.print();
+        System.out.println("cart price: " + cart.price() + "\n");
     }
 }
