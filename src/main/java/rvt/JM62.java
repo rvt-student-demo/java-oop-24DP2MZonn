@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.*;
 
 public class JM62 {
     public static class TodoList {
@@ -111,10 +114,17 @@ public class JM62 {
     public static class UserInterface {
         private TodoList list;
         private Scanner scanner;
+        private JFrame frame;
+        private TextField inputField;
 
-        public UserInterface(TodoList list, Scanner scanner) {
+        public UserInterface(TodoList list, Scanner scanner, JFrame frame, TextField inputField) {
             this.list = list;
             this.scanner = scanner;
+            frame = new JFrame("Happy Coding");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    frame.setSize(600, 600);
+            frame.setVisible(true);
+            frame.add(inputField);
         }
 
         public void start() {
@@ -143,7 +153,7 @@ public class JM62 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TodoList list = new TodoList();
-        UserInterface ui = new UserInterface(list, scanner);
+        UserInterface ui = new UserInterface(list, scanner, new JFrame(), new TextField());
         ui.start();
         scanner.close();
 
