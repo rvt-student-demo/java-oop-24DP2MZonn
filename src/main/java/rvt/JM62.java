@@ -9,7 +9,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+
+import rvt.Diagrams.B;
+
 import java.awt.*;
+
 
 public class JM62 {
     public static class TodoList {
@@ -116,8 +121,10 @@ public class JM62 {
         private Scanner scanner;
         private JFrame frame;
         private TextField inputField;
+        private JButton Button;
+        private JLabel label;
 
-        public UserInterface(TodoList list, Scanner scanner, JFrame frame, TextField inputField) {
+        public UserInterface(TodoList list, Scanner scanner, JFrame frame, TextField inputField, JButton Button, JLabel label) {
             this.list = list;
             this.scanner = scanner;
             frame = new JFrame("Happy Coding");
@@ -125,6 +132,9 @@ public class JM62 {
 		    frame.setSize(600, 600);
             frame.setVisible(true);
             frame.add(inputField);
+            frame.add(Button);
+            
+            
         }
 
         public void start() {
@@ -153,7 +163,7 @@ public class JM62 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TodoList list = new TodoList();
-        UserInterface ui = new UserInterface(list, scanner, new JFrame(), new TextField());
+        UserInterface ui = new UserInterface(list, scanner, new JFrame(), new TextField(),new JButton("Click"), new JLabel());
         ui.start();
         scanner.close();
 
