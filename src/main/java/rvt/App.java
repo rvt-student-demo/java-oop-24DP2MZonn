@@ -7,13 +7,15 @@ import java.sql.Statement;
 public class App {
     public static void main(String[] args) {
         
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:data.db");
-            Statement stmt = conn.createStatement();
-
-            stmt.executeUpdate("create table todo (id integer, task string)");
+        try(
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:todo.db"); 
+        Statement stmt = conn.createStatement();) {
+            
+            
+            String sql = "CREATE TABLE IF NOT EXISTS todo" + " (id integer PRIMARY KEY, task TEXT NOT NULL) STRICT";
+            stmt.executeUpdate(sql);
         } catch (SQLException e) {
-           
+           System.out.println(e.getMessage());
         }
     }
 }

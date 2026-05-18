@@ -19,7 +19,7 @@ import java.awt.*;
 public class JM62 {
     public static class TodoList {
         List<String> tasks;
-        private final String filePath = "data/todo.csv";
+        private static final String DB_URL = "jdbc:sqlite:todo.db";
 
         public TodoList() {
             tasks = new ArrayList<>();
