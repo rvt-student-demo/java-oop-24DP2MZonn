@@ -110,37 +110,32 @@ public class OnlineShop {
                 if (product.isEmpty()) {
                     break;
                 } else {
-                    
+                    if (this.warehouse.take(product)) {
+                        cart.add(product, this.warehouse.price(product));
+                    } else {
+                        System.out.println("Product " + product + " is not available");
+                    }
                 }
-    
-                // Add code here that adds the product to the cart,
-                // If there is any in the warehouse, and reduces the stock in the warehouse
-                // Don't touch any of the other code!
             }
-    
+
             System.out.println("your shoppingcart contents:");
             cart.print();
             System.out.println("total: " + cart.price());
         }
     }
+
     public static void main(String[] args) {
         OnlineShop shop = new OnlineShop();
-        ShoppingCart cart = shop.new ShoppingCart();
-        
-        cart.add("milk", 3);
-        cart.print();
-        System.out.println("cart price: " + cart.price() + "\n");
 
-        cart.add("buttermilk", 2);
-        cart.print();
-        System.out.println("cart price: " + cart.price() + "\n");
+        Warehouse warehouse = shop.new Warehouse();
+        warehouse.addProduct("coffee", 5, 10);
+        warehouse.addProduct("milk", 3, 20);
+        warehouse.addProduct("cream", 2, 55);
+        warehouse.addProduct("bread", 7, 8);
 
-        cart.add("milk", 3);
-        cart.print();
-        System.out.println("cart price: " + cart.price() + "\n");
+        Scanner scanner = new Scanner(System.in);
 
-        cart.add("milk", 3);
-        cart.print();
-        System.out.println("cart price: " + cart.price() + "\n");
+        Store store = shop.new Store(warehouse, scanner);
+        store.shop("John");
     }
 }
